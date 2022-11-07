@@ -2,82 +2,92 @@ applicants = [
     {
         name: 'A',
         percentile : 100,
-        pref1 : 'CSE',
+        prefs: ['CSE','CCE','ECE'],
+       /*  pref1 : 'CSE',
         pref2 : 'CCE',
-        pref3 : 'ECE',
+        pref3 : 'ECE', */
         status: -1
          
     },
     {
         name: 'B',
         percentile: 90,
-        pref1: 'CSE',
+        prefs: ['CSE','ECE','ME'],
+        /* pref1: 'CSE',
         pref2: 'ECE',
-        pref3: 'ME',
+        pref3: 'ME', */
         status: -1
     },
     {
         name: 'C',
         percentile: 80,
-        pref1: 'CCE',
+        prefs: ['CCE','CSE','ME'],
+        /* pref1: 'CCE',
         pref2: 'CSE',
-        pref3: 'ME',
+        pref3: 'ME', */
         status: -1
     },
     {
         name: 'D',
         percentile: 70,
-        pref1: 'ME',
+        prefs: ['ME','CCE','CSE'],
+        /* pref1: 'ME',
         pref2: 'CCE',
-        pref3: 'CSE',
+        pref3: 'CSE', */
         status: -1
     },
     {
         name: 'E',
         percentile: 60,
-        pref1: 'CSE',
+        prefs: ['CSE','CCE','ME'],
+        /* pref1: 'CSE',
         pref2: 'CCE',
-        pref3: 'ME',
+        pref3: 'ME', */
         status: -1
     },
     {
         name: 'F',
         percentile: 50,
-        pref1: 'ECE',
+        prefs: ['ECE','CSE','ME'],
+        /* pref1: 'ECE',
         pref2: 'CSE',
-        pref3: 'ME',
+        pref3: 'ME', */
         status: -1
     },
     {
         name: 'G',
         percentile: 40,
-        pref1: 'ME',
+        prefs: ['ME','CSE','ECE'],
+        /* pref1: 'ME',
         pref2: 'CSE',
-        pref3: 'ECE',
+        pref3: 'ECE', */
         status: -1
     },
     {
         name: 'H',
         percentile: 30,
-        pref1: 'ECE',
+        prefs: ['ECE','CCE','CSE'],
+        /* pref1: 'ECE',
         pref2: 'CCE',
-        pref3: 'CSE',
+        pref3: 'CSE', */
         status: -1
     },
     {
         name: 'I',
         percentile: 20,
-        pref1: 'CCE',
+        prefs: ['CCE','CSE','ECE'],
+        /* pref1: 'CCE',
         pref2: 'CSE',
-        pref3: 'ECE',
+        pref3: 'ECE', */
         status: -1
     },
     {
         name: 'J',
         percentile: 10,
-        pref1: 'CSE',
+        prefs: ['CSE','ME','ECE'],
+        /* pref1: 'CSE',
         pref2: 'ME',
-        pref3: 'ECE',
+        pref3: 'ECE', */
         status: -1
     },
 ]
