@@ -1,3 +1,4 @@
+
 const try_alloting = (pref, branches, current_status, flag) => {
     let branch = branches.find((b)=>{return b.name === pref})
     if(branch.seats){
@@ -22,10 +23,20 @@ const Allot_Seat = (applicant, branches) => {
 }
 
 const Round = (applicants, branches) => {
+    //Need to sort applicants by percentile before calling this function
     applicants.map((applicant)=>Allot_Seat(applicant,branches))
     applicants.map((applicant)=> {
-        let alloted_branch_name = !applicant.status? applicant.prefs[0]: branches.find((b) => {return b.status === applicant.status}).name
+        let alloted_branch_name
+        if(!applicant.status){
+            alloted_branch_name = applicant.prefs[0]
+        }
+        else{
+            let alloted_branch = branches.find((b) => {return b.status === applicant.status})
+            alloted_branch_name = alloted_branch!=null?alloted_branch.name:'nothing'
+        }
         console.log(`${applicant.name} has been alloted ${alloted_branch_name}\n`)
+        
+        
     })
 }
 module.exports = Round
