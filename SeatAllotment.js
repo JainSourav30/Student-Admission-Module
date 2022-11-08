@@ -1,44 +1,31 @@
-const know_my_branch = (b, applicant) => {
-    if(applicant.status === 0){
-        return applicant.pref1
+const try_alloting = (pref, branches, current_status, flag) => {
+    let branch = branches.find((b)=>{return b.name === pref})
+    if(branch.seats){
+        branch.seats--
+        return !flag? 0:branch.status
     }
-    if(b.status === applicant.status){
-        return b.name
+    else{
+        return current_status
     }
-    console.log(`${applicant.name} has status ${branches.find((b)=>know_my_branch(b,applicant))}\n`)
 }
 
 const Allot_Seat = (applicant, branches) => {
     if(applicant.status){
-        let branch = branches.find((b)=>{return b.name === applicant.pref1})
-        if(branch.seats){
-            branch.seats--
-            applicant.status = 0
-            return 
-        }
-        //else{console.log(`no seat available for branch ${branch.name}! Sorry ${applicant.name}!`)}
-        branch = branches.find((b)=>{return b.name === applicant.pref2})
-        if(branch.seats){
-            branch.seats--
-            applicant.status = branch.status
-            return 
-        }
-
-        branch = branches.find((b)=>{return b.name === applicant.pref3})
-        if(branch.seats){
-            branch.seats--
-            applicant.status = branch.status
-            return 
+        let current_status = applicant.status
+        for(let i=0;i<applicant.prefs.length;++i){
+            if(applicant.status == current_status){
+                applicant.status = try_alloting(applicant.prefs[i], branches, current_status, i);
+                if(applicant.status != current_status){break;}
+            }
         }
     }
 }
 
-
 const Round = (applicants, branches) => {
     applicants.map((applicant)=>Allot_Seat(applicant,branches))
     applicants.map((applicant)=> {
-        console.log(`${applicant.name} has status ${branches.find((b)=>know_my_branch(b,applicant))}\n`)
+        let alloted_branch_name = !applicant.status? applicant.prefs[0]: branches.find((b) => {return b.status === applicant.status}).name
+        console.log(`${applicant.name} has been alloted ${alloted_branch_name}\n`)
     })
 }
-
 module.exports = Round
