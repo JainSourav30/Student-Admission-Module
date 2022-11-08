@@ -39,7 +39,7 @@ applicants = [
     {
         name: 'G',
         percentile: 40,
-        prefs: ['ME','CSE','ECE'],
+        prefs: ['CSE','ME','ECE'],
         status: -1
     },
     {
@@ -81,7 +81,7 @@ branches = [
     },
     {
         name: 'ME',
-        seats: 2,
+        seats: 3,
         status: 4
     },
     {
