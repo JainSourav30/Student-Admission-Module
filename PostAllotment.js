@@ -2,7 +2,7 @@ const Drop = (applicant, branches) => {
     if(applicant.status != -1){
         let branch_alloted
         if(!applicant.status){
-            branch_alloted = branches.find((b) => {return b.name == applicant.prefs[0]})
+            branch_alloted = branches.find((b) => {return b.name == applicant.prefs[0].dsp})
         }
         else{
             branch_alloted = branches.find((b) => {return b.status == applicant.status})
@@ -24,11 +24,11 @@ const Hold = (applicant, branches) => {
     let branch_alloted = branches.find((b) => {return b.status == applicant.status})
     temp = []
     flag = true
-    applicant.prefs.forEach(preference => {
+    applicant.prefs.map(preference => {
         if(flag){
             temp.push(preference)
         }
-        if(preference == branch_alloted.name){
+        if(preference.dsp == branch_alloted.name){
             flag = false
         }
     });
@@ -40,14 +40,15 @@ const Hold = (applicant, branches) => {
 const Freeze = (applicant, branches) => {
     let branch_alloted
     if(!applicant.status){
-        branch_alloted = branches.find((b) => {return b.name == applicant.prefs[0]})
+        branch_alloted = branches.find((b) => {return b.name === applicant.prefs[0].dsp})
     }
     else{
         branch_alloted = branches.find((b) => {return b.status == applicant.status})
     }
-    applicant.prefs = [branch_alloted.name]
+    let frozen = applicant.prefs.find((p) => {return p.dsp == branch_alloted.name})
+    applicant.prefs = [frozen]
     applicant.status = 0
-    console.log(`${applicant.name} has freezed his seat\n`)
+    console.log(`${applicant.name} has frozen his seat\n`)
 }
 
 const DecideStatus = (applicant, branches) => {
@@ -108,6 +109,7 @@ const DecideStatus = (applicant, branches) => {
 
 const PostAllotment = (applicants,branches) => {
     applicants.map((applicant)=>DecideStatus(applicant,branches))
+    branches.map((branch)=> branch.wl_no = 1)
 }
 
 module.exports = PostAllotment
