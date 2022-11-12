@@ -21,7 +21,19 @@ const Float = (applicant, branches) => {
 }
 
 const Hold = (applicant, branches) => {
-    //empty
+    let branch_alloted = branches.find((b) => {return b.status == applicant.status})
+    temp = []
+    flag = true
+    applicant.prefs.forEach(preference => {
+        if(flag){
+            temp.push(preference)
+        }
+        if(preference == branch_alloted.name){
+            flag = false
+        }
+    });
+    applicant.prefs = temp
+    applicant.on_hold = true
     console.log(`${applicant.name} is holding his seat\n`)
 }
 
@@ -88,7 +100,7 @@ const DecideStatus = (applicant, branches) => {
         //nth pref case
         //let choice = prompt("Press 0 for Drop\nPress 1 for Float\nPress 2 for Hold\nPress 3 for Freeze");
         if(choice==0){Drop(applicant,branches)}
-        else if(choice==1){Float(applicant,branches);}
+        else if(choice==1 && !applicant.on_hold){Float(applicant,branches);}
         else if(choice==2){Hold(applicant,branches);}
         else if(choice==3){Freeze(applicant, branches)}
     }

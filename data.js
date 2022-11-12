@@ -3,62 +3,72 @@ applicants = [
         name: 'A',
         percentile : 100,
         prefs: ['CSE','CCE','ECE'],
-        status: -1
+        status: -1,
+        on_hold: false
          
     },
     {
         name: 'B',
         percentile: 90,
         prefs: ['CSE','ECE','ME'],
-        status: -1
+        status: -1,
+        on_hold: false
     },
     {
         name: 'C',
         percentile: 80,
-        prefs: ['CCE','CSE','ME'],  
-        status: -1
+        prefs: ['CCE','CSE','ME'],
+        status: -1,
+        on_hold: false
     },
     {
         name: 'D',
         percentile: 70,
         prefs: ['CCE','ME','CSE'],
-        status: -1
+        status: -1,
+        on_hold: false
     },
     {
         name: 'E',
         percentile: 60,
         prefs: ['CSE','CCE','ME'],
-        status: -1
+        status: -1,
+        on_hold: false
     },
     {
         name: 'F',
         percentile: 50,
         prefs: ['ECE','CSE','ME'],
-        status: -1
+        status: -1,
+        on_hold: false
     },
     {
         name: 'G',
         percentile: 40,
         prefs: ['CSE','ME','ECE'],
-        status: -1
+        status: -1,
+        on_hold: false
     },
     {
         name: 'H',
         percentile: 30,
         prefs: ['ECE','CCE','CSE'],
-        status: -1
+        status: -1,
+        on_hold: false
     },
     {
         name: 'I',
         percentile: 20,
         prefs: ['CCE','CSE','ECE'],
-        status: -1
+        status: -1,
+        on_hold: false
     },
     {
         name: 'J',
         percentile: 10,
         prefs: ['CSE','ME','ECE'],
-        status: -1
+        status: -1,
+        on_hold: false
     },
 ]
 
