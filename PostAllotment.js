@@ -2,7 +2,7 @@ const Drop = (applicant, branches) => {
     if(applicant.status != -1){
         let branch_alloted
         if(!applicant.status){
-            branch_alloted = branches.find((b) => {return b.name == applicant.prefs[0].dsp})
+            branch_alloted = branches.find((b) => {return b.id == applicant.prefs[0].dsp})
         }
         else{
             branch_alloted = branches.find((b) => {return b.status == applicant.status})
@@ -11,13 +11,13 @@ const Drop = (applicant, branches) => {
     }
     applicant.prefs = []
     applicant.status = 0
-    console.log(`${applicant.name} has dropped from the process\n`)
+    console.log(`${applicant.id} has dropped from the process\n`)
 }
 
 const Float = (applicant, branches) => {
     let branch_alloted = branches.find((b) => {return b.status == applicant.status})
     branch_alloted.seats++;
-    console.log(`${applicant.name} has floated away his seat\n`)
+    console.log(`${applicant.id} has floated away his seat\n`)
 }
 
 const Hold = (applicant, branches) => {
@@ -28,59 +28,59 @@ const Hold = (applicant, branches) => {
         if(flag){
             temp.push(preference)
         }
-        if(preference.dsp == branch_alloted.name){
+        if(preference.dsp == branch_alloted.id){
             flag = false
         }
     });
     applicant.prefs = temp
     applicant.on_hold = true
-    console.log(`${applicant.name} is holding his seat\n`)
+    console.log(`${applicant.id} is holding his seat\n`)
 }
 
 const Freeze = (applicant, branches) => {
     let branch_alloted
     if(!applicant.status){
-        branch_alloted = branches.find((b) => {return b.name === applicant.prefs[0].dsp})
+        branch_alloted = branches.find((b) => {return b.id === applicant.prefs[0].dsp})
     }
     else{
         branch_alloted = branches.find((b) => {return b.status == applicant.status})
     }
-    let frozen = applicant.prefs.find((p) => {return p.dsp == branch_alloted.name})
+    let frozen = applicant.prefs.find((p) => {return p.dsp == branch_alloted.id})
     applicant.prefs = [frozen]
     applicant.status = 0
-    console.log(`${applicant.name} has frozen his seat\n`)
+    console.log(`${applicant.id} has frozen his seat\n`)
 }
 
 const DecideStatus = (applicant, branches) => {
     let choice
-    if(applicant.name == 'A'){
+    if(applicant.id == 'A'){
         choice = 3
     }
-    else if(applicant.name == 'B'){
+    else if(applicant.id == 'B'){
         choice = 0
     }
-    else if(applicant.name == 'C'){
+    else if(applicant.id == 'C'){
         choice = 3
     }
-    else if(applicant.name == 'D'){
+    else if(applicant.id == 'D'){
         choice = 2
     }
-    else if(applicant.name == 'E'){
+    else if(applicant.id == 'E'){
         choice = 3
     }
-    else if(applicant.name == 'F'){
+    else if(applicant.id == 'F'){
         choice = 0
     }
-    else if(applicant.name == 'G'){
+    else if(applicant.id == 'G'){
         choice = 1
     }
-    else if(applicant.name == 'H'){
+    else if(applicant.id == 'H'){
         choice = 0
     }
-    else if(applicant.name == 'I'){
+    else if(applicant.id == 'I'){
         choice = 10
     }
-    else if(applicant.name == 'J'){
+    else if(applicant.id == 'J'){
         choice = 10
     }
     
@@ -88,7 +88,7 @@ const DecideStatus = (applicant, branches) => {
         //nothing
         //let choice = prompt("Press 0 for Drop\nElse will continue");
         if(choice==0){Drop(applicant,branches);}
-        else{console.log(`${applicant.name} continues to stay in further rounds\n`)}
+        else{console.log(`${applicant.id} continues to stay in further rounds\n`)}
     }
     else if(!applicant.status){
         //1st pref case

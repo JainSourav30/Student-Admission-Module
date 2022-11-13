@@ -1,5 +1,5 @@
 const try_alloting = (applicant, branches, current_status, flag) => {
-    let branch = branches.find((b)=>{return b.name === applicant.prefs[flag].dsp})
+    let branch = branches.find((b)=>{return b.id === applicant.prefs[flag].dsp})
     if(branch.seats){
         branch.seats--
         if(!flag){
@@ -9,13 +9,13 @@ const try_alloting = (applicant, branches, current_status, flag) => {
             return 0
         }
         else{
-            let temp = applicant.prefs.find((p) => {return p.dsp == branch.name})
+            let temp = applicant.prefs.find((p) => {return p.dsp == branch.id})
             temp.waiting = 0
             return branch.status
         }
     }
     else{
-        let temp = applicant.prefs.find((p) => {return p.dsp == branch.name})
+        let temp = applicant.prefs.find((p) => {return p.dsp == branch.id})
         temp.waiting = branch.wl_no
         branch.wl_no++
         return current_status
@@ -38,20 +38,20 @@ const Round = (applicants, branches) => {
     //Need to sort applicants by percentile before calling this function
     applicants.map((applicant)=>Allot_Seat(applicant,branches))
     applicants.map((applicant)=> {
-        let alloted_branch_name
+        let alloted_branch_id
         if(!applicant.status){
             if(!applicant.prefs.length){
-                alloted_branch_name = 'dropped-out-of-college'
+                alloted_branch_id = 'dropped-out-of-college'
             }
             else{
-                alloted_branch_name = applicant.prefs[0].dsp
+                alloted_branch_id = applicant.prefs[0].dsp
             }
         }
         else{
             let alloted_branch = branches.find((b) => {return b.status === applicant.status})
-            alloted_branch_name = alloted_branch!=null?alloted_branch.name:'nothing'
+            alloted_branch_id = alloted_branch!=null?alloted_branch.id:'nothing'
         }
-        console.log(`${applicant.name} has been alloted ${alloted_branch_name}\n`)
+        console.log(`${applicant.id} has been alloted ${alloted_branch_id}\n`)
     })
 }
 module.exports = Round

@@ -1,6 +1,6 @@
 applicants = [
     {
-        name: 'A',
+        id: 'A',
         percentile : 100,
         prefs: [
             {dsp: 'CSE', waiting: 1e9},
@@ -9,10 +9,9 @@ applicants = [
         ],
         status: -1,
         on_hold: false
-         
     },
     {
-        name: 'B',
+        id: 'B',
         percentile: 90,
         prefs: [
             {dsp: 'CSE', waiting: 1e9},
@@ -23,7 +22,7 @@ applicants = [
         on_hold: false
     },
     {
-        name: 'C',
+        id: 'C',
         percentile: 80,
         prefs: [
             {dsp: 'CCE', waiting: 1e9},
@@ -34,7 +33,7 @@ applicants = [
         on_hold: false
     },
     {
-        name: 'D',
+        id: 'D',
         percentile: 70,
         prefs: [
             {dsp: 'CCE', waiting: 1e9},
@@ -45,7 +44,7 @@ applicants = [
         on_hold: false
     },
     {
-        name: 'E',
+        id: 'E',
         percentile: 60,
         prefs: [
             {dsp: 'CSE', waiting: 1e9},
@@ -56,7 +55,7 @@ applicants = [
         on_hold: false
     },
     {
-        name: 'F',
+        id: 'F',
         percentile: 50,
         prefs: [
             {dsp: 'ECE', waiting: 1e9},
@@ -67,7 +66,7 @@ applicants = [
         on_hold: false
     },
     {
-        name: 'G',
+        id: 'G',
         percentile: 40,
         prefs: [
             {dsp: 'CSE', waiting: 1e9},
@@ -78,7 +77,7 @@ applicants = [
         on_hold: false
     },
     {
-        name: 'H',
+        id: 'H',
         percentile: 30,
         prefs: [
             {dsp: 'ECE', waiting: 1e9},
@@ -89,7 +88,7 @@ applicants = [
         on_hold: false
     },
     {
-        name: 'I',
+        id: 'I',
         percentile: 20,
         prefs: [
             {dsp: 'CCE', waiting: 1e9},
@@ -100,7 +99,7 @@ applicants = [
         on_hold: false
     },
     {
-        name: 'J',
+        id: 'J',
         percentile: 10,
         prefs: [
             {dsp: 'CSE', waiting: 1e9},
@@ -115,37 +114,37 @@ applicants = [
 
 branches = [
     {
-        name: 'CSE',
+        id: 'CSE',
         seats: 2,
         status: 1,
         wl_no: 1 
     },
     {
-        name: 'CCE',
+        id: 'CCE',
         seats: 1,
         status: 2,
         wl_no: 1 
     },
     {
-        name: 'ECE',
+        id: 'ECE',
         seats: 1,
         status: 3,
         wl_no: 1 
     },
     {
-        name: 'ME',
+        id: 'ME',
         seats: 3,
         status: 4,
         wl_no: 1 
     },
     {
-        name: 'DCS',
+        id: 'DCS',
         seats: 3,
         status: 5,
         wl_no: 1 
     },
     {
-        name: 'DEC',
+        id: 'DEC',
         seats: 3,
         status: 6,
         wl_no: 1
