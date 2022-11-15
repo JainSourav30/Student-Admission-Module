@@ -1,6 +1,5 @@
 const details = require('./sql_files/Souravdb')
 const Pool = require("pg").Pool;
-console.log(details.password)
 
 const pool = new Pool(
     {
