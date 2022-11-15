@@ -1,3 +1,5 @@
+const pool = require('./database')
+
 applicants = [
     {
         id: 'A',
@@ -150,5 +152,13 @@ branches = [
         wl_no: 1
     },
 ]
+
+const prom = new Promise((resolve, reject)=>{
+    const results = pool.query("SELECT * FROM applicants;")
+    resolve(results);
+})
+
+prom.then((data)=>console.log(data.rows))
+
 
 module.exports = {applicants, branches}
