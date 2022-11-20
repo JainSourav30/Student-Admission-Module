@@ -1,222 +1,49 @@
-const pool = require('./database')
+import Applicant from './classes/Applicant.mjs'
+import Branch from './classes/Branch.mjs'
+import Preference from './classes/Preference.mjs'
+import pool from './database'
 
-/* applicants = [
-    {
-        id: 'A',
-        percentile : 100,
-        prefs: [
-            {dsp: 'CSE', waiting: 1e9},
-            {dsp: 'CCE', waiting: 1e9},
-            {dsp: 'ECE', waiting: 1e9}            
-        ],
-        status: -1,
-        on_hold: false
-    },
-    {
-        id: 'B',
-        percentile: 90,
-        prefs: [
-            {dsp: 'CSE', waiting: 1e9},
-            {dsp: 'ECE', waiting: 1e9},
-            {dsp: 'ME', waiting: 1e9}            
-        ],
-        status: -1,
-        on_hold: false
-    },
-    {
-        id: 'C',
-        percentile: 80,
-        prefs: [
-            {dsp: 'CCE', waiting: 1e9},
-            {dsp: 'CSE', waiting: 1e9},
-            {dsp: 'ME', waiting: 1e9}            
-        ],
-        status: -1,
-        on_hold: false
-    },
-    {
-        id: 'D',
-        percentile: 70,
-        prefs: [
-            {dsp: 'CCE', waiting: 1e9},
-            {dsp: 'ME', waiting: 1e9},
-            {dsp: 'CSE', waiting: 1e9}            
-        ],
-        status: -1,
-        on_hold: false
-    },
-    {
-        id: 'E',
-        percentile: 60,
-        prefs: [
-            {dsp: 'CSE', waiting: 1e9},
-            {dsp: 'CCE', waiting: 1e9},
-            {dsp: 'ME', waiting: 1e9}            
-        ],
-        status: -1,
-        on_hold: false
-    },
-    {
-        id: 'F',
-        percentile: 50,
-        prefs: [
-            {dsp: 'ECE', waiting: 1e9},
-            {dsp: 'CSE', waiting: 1e9},
-            {dsp: 'ME', waiting: 1e9}            
-        ],
-        status: -1,
-        on_hold: false
-    },
-    {
-        id: 'G',
-        percentile: 40,
-        prefs: [
-            {dsp: 'CSE', waiting: 1e9},
-            {dsp: 'ME', waiting: 1e9},
-            {dsp: 'ECE', waiting: 1e9}            
-        ],
-        status: -1,
-        on_hold: false
-    },
-    {
-        id: 'H',
-        percentile: 30,
-        prefs: [
-            {dsp: 'ECE', waiting: 1e9},
-            {dsp: 'CCE', waiting: 1e9},
-            {dsp: 'CSE', waiting: 1e9}            
-        ],
-        status: -1,
-        on_hold: false
-    },
-    {
-        id: 'I',
-        percentile: 20,
-        prefs: [
-            {dsp: 'CCE', waiting: 1e9},
-            {dsp: 'CSE', waiting: 1e9},
-            {dsp: 'ECE', waiting: 1e9}            
-        ],
-        status: -1,
-        on_hold: false
-    },
-    {
-        id: 'J',
-        percentile: 10,
-        prefs: [
-            {dsp: 'CSE', waiting: 1e9},
-            {dsp: 'ME', waiting: 1e9},
-            {dsp: 'ECE', waiting: 1e9}            
-        ],
-        status: -1,
-        on_hold: false
-    },
-]
+//const pool = require('./database')
 
 
-branches = [
-    {
-        id: 'CSE',
-        seats: 2,
-        status: 1,
-        wl_no: 1 
-    },
-    {
-        id: 'CCE',
-        seats: 1,
-        status: 2,
-        wl_no: 1 
-    },
-    {
-        id: 'ECE',
-        seats: 1,
-        status: 3,
-        wl_no: 1 
-    },
-    {
-        id: 'ME',
-        seats: 3,
-        status: 4,
-        wl_no: 1 
-    },
-    {
-        id: 'DCS',
-        seats: 3,
-        status: 5,
-        wl_no: 1 
-    },
-    {
-        id: 'DEC',
-        seats: 3,
-        status: 6,
-        wl_no: 1
-    },
-] */
-
-//(XXX,nnnn)
-
- const getwait = (pref) => {
-    let str
-    for(let i=5;pref[i]!=')';i++){
-        str = str.concat(pref[i])
-    }
-    let b = parseint(str)
+const getwait = (pref) => {
+    let str = pref.slice(5,pref.length - 1)
+    let b = parseInt(str)
     return b
 }
 
 const getstring = (pref) => {
-    let str
-        for(let i=1;pref[i]!=',';i++){
-            str = str.concat(pref[i])
-        }
-    return str
-
+    return pref.slice(1,4)
 }
 
 const applicants = []
 const branches = []
 
 
-/* const retrieveData = async() => {
-    const results = await pool.query("SELECT * FROM applicants;")
-    console.log(results.rows);
+const retrieveData = async() => {
+
+    //Applicants
+    const details = await pool.query("SELECT id, percentile, status, on_hold FROM applicants;")
+    for(let a = 0; a < details.rowCount; ++a){
+        const pref_details = await pool.query("SELECT UNNEST(prefs) FROM applicants WHERE id = ($1);",[a+1])
+        let pref_array = []
+        for(let i=0; i < pref_details.rowCount; ++i){
+            pref_array.push(new Preference(getstring(pref_details.rows[i].unnest),getwait(pref_details.rows[i].unnest)))
+        }
+        let p = new Applicant(details.rows[a].id,details.rows[a].percentile,pref_array,details.rows[a].status,details.rows[a].on_hold)
+        applicants.push(p)
+    }
+    
+    //Branches
+    const b_details = await pool.query("SELECT * FROM branches;")
+    for(let b = 0; b < b_details.rowCount ; ++b){
+        branches.push(new Branch(b_details.rows[b].id,b_details.rows[b].seats,b_details.rows[b].status,b_details.rows[b].wl_no))
+    }
 }
 
-retrieveData() */
-
-/* const prom = new Promise((resolve, reject)=>{
-    const results = pool.query("SELECT UNNEST(prefs) FROM applicants;")
-    resolve(results);
-})
+retrieveData()
 
 
-prom.then((data)=>console.log(data.rows[0].unnest))  */
-
-console.log(getstring("(CSE,100)"))
-
-/*
-
-INSERT INTO "public"."applicants" ("id", "percentile", "prefs", "status", "on_hold") VALUES
-(1, 100, '{"(CSE,100)","(CCE,100)","(ECE,100)"}', -1, 'f'),
-(2, 90, '{"(CSE,100)","(ECE,100)","(MME,100)"}', -1, 'f'),
-(3, 80, '{"(CCE,100)","(CSE,100)","(MME,100)"}', -1, 'f'),
-(4, 70, '{"(CCE,100)","(MME,100)","(CSE,100)"}', -1, 'f'),
-(5, 60, '{"(CSE,100)","(CCE,100)","(MME,100)"}', -1, 'f'),
-(6, 50, '{"(ECE,100)","(CSE,100)","(MME,100)"}', -1, 'f'),
-(7, 40, '{"(CSE,100)","(MME,100)","(ECE,100)"}', -1, 'f'),
-(8, 30, '{"(ECE,100)","(CCE,100)","(CSE,100)"}', -1, 'f'),
-(9, 20, '{"(CCE,100)","(CSE,100)","(ECE,100)"}', -1, 'f'),
-(10, 10, '{"(CSE,100)","(MME,100)","(ECE,100)"}', -1, 'f');
-
-INSERT INTO "public"."branches" ("id", "seats", "status", "wl_no") VALUES
-('CCE', 1, 2, 1),
-('CSE', 2, 1, 1),
-('DCS', 3, 5, 1),
-('DEC', 3, 6, 1),
-('ECE', 1, 3, 1),
-('MME', 3, 4, 1);
-*/
-
-
+console.log(applicants)
 
 module.exports = {applicants, branches}
