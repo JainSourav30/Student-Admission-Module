@@ -107,9 +107,7 @@ const DecideStatus = (applicant, branches) => {
     }
 }
 
-const PostAllotment = (applicants,branches) => {
+export const PostAllotment = (applicants,branches) => {
     applicants.map((applicant)=>DecideStatus(applicant,branches))
     branches.map((branch)=> branch.wl_no = 1)
 }
-
-module.exports = PostAllotment

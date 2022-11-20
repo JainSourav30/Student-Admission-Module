@@ -1,7 +1,11 @@
-const details = require('./sql_files/Souravdb')
-const Pool = require("pg").Pool;
+//const details = require('./sql_files/Souravdb')
+//const Pool = require("pg").Pool;
+import { details } from "./sql_files/Souravdb.js"
+import pkg from 'pg'
+const {Pool} = pkg
 
-const pool = new Pool(
+
+ export const pool = new Pool(
     {
         user: details.user,
         password: details.password,
@@ -11,7 +15,7 @@ const pool = new Pool(
     }
 )
 
-module.exports = pool
+//module.exports = pool
 
 /*
 INSERT INTO "public"."applicants" ("id", "percentile", "prefs", "status", "on_hold") VALUES
