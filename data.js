@@ -14,7 +14,7 @@ const getstring = (pref) => {
     return pref.slice(1,4)
 }
 
-const retrieveData = async(applicants,branches) => {
+export const retrieveData = async(applicants,branches) => {
     
     //Applicants
     const details = await pool.query("SELECT id, percentile, status, on_hold FROM applicants;")
@@ -34,12 +34,3 @@ const retrieveData = async(applicants,branches) => {
         branches.push(new Branch(b_details.rows[b].id,b_details.rows[b].seats,b_details.rows[b].status,b_details.rows[b].wl_no))
     }
 }
-
-let applicants = []
-let branches = []
-const temp = () => {
-    retrieveData(applicants,branches)
-
-}
-
-export {applicants,branches}
