@@ -34,7 +34,7 @@ const Allot_Seat = (applicant, branches) => {
     }
 }
 
-const Round = (applicants, branches) => {
+export const Round = (applicants, branches) => {
     //Need to sort applicants by percentile before calling this function
     applicants.map((applicant)=>Allot_Seat(applicant,branches))
     applicants.map((applicant)=> {
@@ -54,4 +54,3 @@ const Round = (applicants, branches) => {
         console.log(`${applicant.id} has been alloted ${alloted_branch_id}\n`)
     })
 }
-module.exports = Round

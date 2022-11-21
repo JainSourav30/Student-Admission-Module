@@ -1,10 +1,8 @@
-import Applicant from './classes/Applicant.mjs'
-import Branch from './classes/Branch.mjs'
-import Preference from './classes/Preference.mjs'
-import pool from './database'
-
+import {Applicant} from './classes/Applicant.js'
+import {Branch} from './classes/Branch.js'
+import {Preference} from './classes/Preference.js'
+import {pool} from './database.js'
 //const pool = require('./database')
-
 
 const getwait = (pref) => {
     let str = pref.slice(5,pref.length - 1)
@@ -16,12 +14,8 @@ const getstring = (pref) => {
     return pref.slice(1,4)
 }
 
-const applicants = []
-const branches = []
-
-
-const retrieveData = async() => {
-
+export const retrieveData = async(applicants,branches) => {
+    
     //Applicants
     const details = await pool.query("SELECT id, percentile, status, on_hold FROM applicants;")
     for(let a = 0; a < details.rowCount; ++a){
@@ -40,10 +34,3 @@ const retrieveData = async() => {
         branches.push(new Branch(b_details.rows[b].id,b_details.rows[b].seats,b_details.rows[b].status,b_details.rows[b].wl_no))
     }
 }
-
-retrieveData()
-
-
-console.log(applicants)
-
-module.exports = {applicants, branches}

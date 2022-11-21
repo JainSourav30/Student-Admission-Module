@@ -1,9 +1,9 @@
 {
-  "type": "module",
   "name": "student-admission-module",
   "description": "A complete module for admitting students at LNMIIT",
   "version": "1.0.0",
   "main": "app.js",
+  "type": "module",
   "dependencies": {
     "pg": "^8.8.0"
   },
