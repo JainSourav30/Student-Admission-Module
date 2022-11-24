@@ -111,7 +111,7 @@ const DecideStatus = (applicant, branches, round_no, total_rounds) => {
             choice = 100
         }
         else if(applicant.id == '7'){
-            choice = 3 //float
+            choice = 0 //float
         }
         else if(applicant.id == '8'){
             choice = 100
@@ -123,8 +123,6 @@ const DecideStatus = (applicant, branches, round_no, total_rounds) => {
             choice = 10 //thrown 
         }
     }
-
-
 
     if(applicant.status == -1){
         //nothing
@@ -138,7 +136,7 @@ const DecideStatus = (applicant, branches, round_no, total_rounds) => {
         //let choice = prompt("Press 0 for Drop\nPress 3 for Freeze\n");
         if(choice==0){Drop(applicant,branches);}
         else if(choice==3){Freeze(applicant, branches, round_no);}
-        else{console.log(`WRONG INPUT`)}
+        else{console.log(`Valid input wasn't chosen as candidate dropped out`)}
     }
     else{
         //nth pref case
@@ -159,8 +157,4 @@ export const PostAllotment = async(applicants,branches, round_no,total_rounds) =
             pool.query('INSERT INTO students(id, branch_status, last_round) VALUES ($1,$2,$3)',[a[0],a[1],a[2]])
         })
     }
-
-    //add to student database
-
-    //applicants.map((applicant)=> console.log(applicant.id, applicant.prefs))
 }
